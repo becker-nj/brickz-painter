@@ -129,7 +129,7 @@ public class brickzGame : MonoBehaviour {
         {
             if(brick != null)
             {
-                brick.GetComponent<brickAnimController>().killBrick();
+                brick.GetComponent<brickAnimController>().killBrickAnim();
             }
         }
     }

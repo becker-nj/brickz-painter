@@ -13,7 +13,7 @@ public class brickAnimController : MonoBehaviour
 
     //Begin the destruction animation of the object this script
     //is attached to.  
-    public void killBrick()
+    public void killBrickAnim()
     {
         anim.SetTrigger("Destroy");
     }
