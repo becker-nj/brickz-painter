@@ -5,22 +5,25 @@ using UnityEngine.UI;
 
 public class brickzGame : MonoBehaviour {
 
+    //The brick prefab to spawn in a grid.
     public GameObject brickzObj;
+    //The brick that previews the next color that can be applied
     public GameObject nextColorBrickDisplay;
-    public Text displayTimer;
-    private string niceTime;
+    //The array of bricks shown on the screen.
     private GameObject[,] brickArray;
+    //The list of bricks that were matched and need to be removed 
+    //and replaced. 
     private HashSet<GameObject> brickzToDestroy;
 
+    //Offsets for brick spawn locations. 
     private int X_OFFSET = -2;
     private int Y_OFFSET = -4;
 
+    //These are applied to the next clicked brick. 
+    //The next color to be shown on the nextColorBrickDisplay 
     private Color nextColor;
+    //The next color to be shown on the nextColorBrickDisplay
     private float nextSpeed;
-
-    private float timer = 0.0f;
-    private int minutes = 0;
-    private int seconds = 0;
 
     // Use this for initialization
     void Start () {
@@ -31,8 +34,6 @@ public class brickzGame : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
-        updateTime();
 
         if( Input.GetMouseButtonDown(0) && allBricksClickable())
         {
@@ -56,20 +57,6 @@ public class brickzGame : MonoBehaviour {
                 } 
             }
         }
-    }
-
-    private void OnGUI()
-    {
-        minutes = Mathf.FloorToInt(timer / 60F);
-        seconds = Mathf.FloorToInt(timer - minutes * 60);
-        niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
-
-        displayTimer.text = string.Format("{0:HH:mm:ss}", niceTime);
-    }
-
-    private void updateTime()
-    {
-        timer += Time.deltaTime;
     }
 
     private void spawnBrickz()
