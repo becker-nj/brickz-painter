@@ -15,6 +15,8 @@ public class initializeDisplayBrick : MonoBehaviour {
         name = "nextColorBrickDisplay";
     }
 
+    //Set the color of the object this script is applied to
+    //from the colors listed in globalVars file. 
     public void setRandomColorandSpeed()
     {
         //Get New Random Color and Corresponding Speed

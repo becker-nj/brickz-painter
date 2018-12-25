@@ -26,21 +26,25 @@ public class initializeBrick : MonoBehaviour {
         this.GetComponent<spinBrick>().setYSpeed(newSpeed);
     }
 
+    //Stop rendering object this class is attached to. 
     public void startRender()
     {
         this.GetComponent<MeshRenderer>().enabled = true;
     }
 
+    //Start rendering object this class is attached to. 
     public void stopRender()
     {
         this.GetComponent<MeshRenderer>().enabled = false;
     }
 
+    //Make the object this class is attached to clickable. 
     public void makeClickable()
     {
         this.GetComponent<BoxCollider>().enabled = true;
     }
 
+    //Make the object this class is attached to not clickable. 
     public void makeUnclickable()
     {
         this.GetComponent<BoxCollider>().enabled = false;
