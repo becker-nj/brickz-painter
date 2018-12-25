@@ -11,6 +11,7 @@ public class colorChange : MonoBehaviour {
         REND = this.GetComponent<Renderer>();
     }
 
+    //Change the rendered color of the object this script is attached to. 
     public void setNewColor(Color newColor)
     {
         REND.material.SetColor("_Color", newColor);
