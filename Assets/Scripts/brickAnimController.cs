@@ -11,22 +11,18 @@ public class brickAnimController : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
     }
 
+    //Begin the destruction animation of the object this script
+    //is attached to.  
     public void killBrick()
     {
         anim.SetTrigger("Destroy");
-        Camera.main.GetComponent<brickzGame>().setBrickNull(gameObject);
     }
 
+    //Destroy the object this script is attached to.
+    //Called from animation event. 
     public void finishBrick()
     {
         Camera.main.GetComponent<brickzGame>().replaceBrick((int)gameObject.transform.position.x, (int)gameObject.transform.position.y);
-        Debug.Log(gameObject.transform.position);
         Destroy(this.gameObject);
-    }
-
-    public void applyNewColor(Color nextC, float nextSpeed)
-    {
-        GetComponent<colorChange>().setNewColor(nextC);
-        GetComponent<spinBrick>().setYSpeed(nextSpeed);
     }
 }

@@ -35,8 +35,10 @@ public class brickzGame : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        if( Input.GetMouseButtonDown(0) && allBricksClickable())
+        //If the user clicks a something, make sure they're allowed to click right now.
+        if( Input.GetMouseButtonUp(0) && allBricksClickable())
         {
+            //Get the object the user clicked on.
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -44,21 +46,24 @@ public class brickzGame : MonoBehaviour {
             {
                 BoxCollider bc = hit.collider as BoxCollider;
                 
-                if (bc != null)
+                //Check if the object clicked as a brick. 
+                if (bc.gameObject.name == "brick")
                 {
-                    if (bc.gameObject.name == "brick")
-                    {
-                        bc.GetComponent<brickAnimController>().applyNewColor(nextColorBrickDisplay.gameObject.GetComponent<Renderer>().material.GetColor("_Color"), 
-                            nextColorBrickDisplay.gameObject.GetComponent<spinBrick>().getYSpeed());
+                    //Apply the next color to the clicked brick. 
+                    bc.GetComponent<colorChange>().applyNewColor(nextColorBrickDisplay.gameObject.GetComponent<Renderer>().material.GetColor("_Color"));
+                    //Apply next spin speed to the clicked brick.
+                    bc.GetComponent<spinBrick>().setYSpeed(nextColorBrickDisplay.gameObject.GetComponent<spinBrick>().getYSpeed());
 
-                        nextColorBrickDisplay.GetComponent<initializeDisplayBrick>().setRandomColorandSpeed();
-                        matchChecker();
-                    }
-                } 
+                    //Get a new color and speed for the next turn.
+                    nextColorBrickDisplay.GetComponent<initializeDisplayBrick>().setRandomColorandSpeed();
+                    //Check if a match was made.
+                    matchChecker();
+                }
             }
         }
     }
 
+    //Fill the brick array with 5x8 brickz.
     private void spawnBrickz()
     {
         brickArray = new GameObject[5, 8];
@@ -72,24 +77,18 @@ public class brickzGame : MonoBehaviour {
         }
     }
 
-    public void setBrickNull(GameObject clickedBrick)
+    //Create a new brick in the brick array. 
+    private void spawnBrick(int x, int y)
     {
-        for(int i = 0; i < brickArray.GetLength(0); i++)
-        {
-            for(int j = 0; j < brickArray.GetLength(1); j++)
-            {
-                if(brickArray[i,j] == clickedBrick)
-                {
-                    brickArray[i, j] = null;
-                }
-            }
-        }
+        brickArray[x, y] = Instantiate(brickzObj, new Vector3(x + X_OFFSET, y + Y_OFFSET, 0), Quaternion.identity) as GameObject;
     }
 
+    //See if a triplet or greater exists in a vertical or horizontal direction in the array of brickz.
     private void matchChecker()
     {
         brickzToDestroy.Clear();
 
+        //*HORIZONTAL*//
         for (int y = 0; y < brickArray.GetLength(1); y++)//For each row
         {
             for (int x = 0; x < brickArray.GetLength(0) - 2; x++)//For each horizontal triplet
@@ -104,6 +103,7 @@ public class brickzGame : MonoBehaviour {
             }
         }
 
+        //*VERTICAL*//
         for (int x = 0; x < brickArray.GetLength(0); x++)//For each column
         {
             for (int y = 0; y < brickArray.GetLength(1) - 2; y++)//For each vertical triplet
@@ -118,9 +118,11 @@ public class brickzGame : MonoBehaviour {
             }
         }
 
+        //Destroy the found matches.
         killMatchedBrickz();
     }
 
+    //Destroy the bricks in the brickzToDestroy HashSet that were determined as matches.
     public void killMatchedBrickz()
     {
         foreach(GameObject brick in brickzToDestroy)
@@ -132,16 +134,15 @@ public class brickzGame : MonoBehaviour {
         }
     }
 
-    private void spawnBrick(int x, int y)
-    {
-        brickArray[x, y] = Instantiate(brickzObj, new Vector3(x + X_OFFSET, y + Y_OFFSET, 0), Quaternion.identity) as GameObject;
-    }
-
+    //Put a replacement brick in the array if one was destoryed in it's location.
+    //Called by bricks in process of being destroyed. 
     public void replaceBrick(int x, int y)
     {
         brickArray[x - X_OFFSET, y - Y_OFFSET] = Instantiate(brickzObj, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
     }
 
+    //Check if all bricks are in a clickable state
+    //Don't let the user click if not all brick's are clickable/finished animating.
     private bool allBricksClickable()
     {
         for (int i = 0; i < brickArray.GetLength(0); i++)
@@ -159,7 +160,6 @@ public class brickzGame : MonoBehaviour {
                 {
                     return false;
                 }
-               
             }
         }
         return true;
