@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
+  - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -256,7 +257,6 @@ MonoBehaviour:
     type: 3}
   nextColorBrickDisplay: {fileID: 1138836990455172, guid: 612995a489a00784ba8f329f3a418e0a,
     type: 3}
-  displayTimer: {fileID: 1310286282}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -338,6 +338,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 6c38cfdcf4a1ee04488420963abb7a31, type: 2}
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 634868a773d51b74a84d60dfb5095a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 1310286282}
 --- !u!1 &1310286280
 GameObject:
   m_ObjectHideFlags: 0
