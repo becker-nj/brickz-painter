@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Constantly rotates the object this class is attached to
+//at the speeds set in x_speed, y_speed, z_speed.
 public class spinBrick : MonoBehaviour {
 
     private float x_speed = 0;
